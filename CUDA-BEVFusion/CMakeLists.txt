@@ -28,7 +28,7 @@ set(CMAKE_BUILD_TYPE "Release")
 set(arch ${CMAKE_HOST_SYSTEM_PROCESSOR})
 
 find_package(CUDA REQUIRED)
-find_package(Protobuf REQUIRED)
+# find_package(Protobuf REQUIRED)
 
 # For cuda-12
 # set(CMAKE_CXX_FLAGS_RELEASE "-std=c++17 -Wextra -Wall -Wno-missing-field-initializers -Wno-deprecated-declarations -O3 -DENABLE_TEXT_BACKEND_STB")
@@ -40,15 +40,18 @@ set(CMAKE_CXX_FLAGS_DEBUG   "-std=c++14 -O0 -g -DENABLE_TEXT_BACKEND_STB")
 set(CUDA_NVCC_FLAGS_RELEASE "-Werror=all-warnings -Xcompiler -std=c++14,-Wextra,-Wall,-Wno-deprecated-declarations,-O3 -DENABLE_TEXT_BACKEND_STB")
 set(CUDA_NVCC_FLAGS_DEBUG   "-std=c++14 -O0 -g -DENABLE_TEXT_BACKEND_STB")
 
-set(CUDA_NVCC_FLAGS ${CUDA_NVCC_FLAGS} 
-  -gencode arch=compute_$ENV{CUDASM},code=compute_$ENV{CUDASM}
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++14")
+set(CUDA_NVCC_FLAGS "${CUDA_NVCC_FLAGS} --std c++14")
+
+set(CUDA_NVCC_FLAGS ${CUDA_NVCC_FLAGS}
+  -gencode arch=compute_89,code=compute_89
 )
 
 include_directories(
-  ${Protobuf_INCLUDE_DIRS}
+  # ${Protobuf_INCLUDE_DIRS}
   $ENV{CUDA_Inc}
   $ENV{TensorRT_Inc}
-  $ENV{Python_Inc}
+  # $ENV{Python_Inc}
   ../dependencies/stb
   ../dependencies/pybind11/include
   ../libraries/cuOSD/src
@@ -62,25 +65,29 @@ link_directories(
   $ENV{TensorRT_Lib}
   ../libraries/3DSparseConvolution/libspconv/lib/${arch}
   build
-  $ENV{Python_Lib}
+  # $ENV{Python_Lib}
 )
 
-file(GLOB_RECURSE CORE_FILES 
-  src/bevfusion/*.cu 
+file(GLOB_RECURSE CORE_FILES
+  src/bevfusion/*.cu
   src/bevfusion/*.cpp
   src/common/tensor.cu
   src/common/tensorrt.cpp
 )
 
-file(GLOB_RECURSE VISUALIZE_FILES 
+file(GLOB_RECURSE VISUALIZE_FILES
   ../libraries/cuOSD/src/*.cpp
   ../libraries/cuOSD/src/*.cu
   src/common/visualize.cu
 )
 
 ####################### libbevfusion_core.so ##########################
-cuda_add_library(bevfusion_core SHARED 
-  ${CORE_FILES}
+cuda_add_library(bevfusion_core STATIC
+${CORE_FILES}
+)
+
+cuda_add_library(bevfusion_vis STATIC
+  ${VISUALIZE_FILES}
 )
 
 target_link_libraries(bevfusion_core
@@ -88,41 +95,42 @@ target_link_libraries(bevfusion_core
   libcublasLt.so
   libnvinfer.so
   libspconv.so
-  ${Protobuf_LIBRARIES}
+  libprotobuf.so.17
+  # ${Protobuf_LIBRARIES}
   libnvinfer_plugin.so
 )
 #######################################################################
 
 
 ####################### bevfusion program #############################
-cuda_add_executable(bevfusion 
-  src/main.cpp
-  ${VISUALIZE_FILES}
-)
+# cuda_add_executable(bevfusion
+#   src/main.cpp
+#   bevfusion_vis
+# )
 
-target_link_libraries(bevfusion
-  bevfusion_core
-  libnvinfer.so
-  libspconv.so
-  ${Protobuf_LIBRARIES}
-  libnvinfer_plugin.so
-)
+# target_link_libraries(bevfusion
+#   bevfusion_core
+#   libnvinfer.so
+#   libspconv.so
+#   ${Protobuf_LIBRARIES}
+#   libnvinfer_plugin.so
+# )
 #######################################################################
 
 
 ########################## libpybev.so ################################
-if(${CMAKE_BUILD_PYTHON} STREQUAL "ON")
-  cuda_add_library(pybev SHARED
-    src/python.cpp
-  )
+# if(${CMAKE_BUILD_PYTHON} STREQUAL "ON")
+#   cuda_add_library(pybev SHARED
+#     src/python.cpp
+#   )
 
-  target_link_libraries(pybev
-    bevfusion_core
-    libnvinfer.so
-    libspconv.so
-    ${Protobuf_LIBRARIES}
-    libnvinfer_plugin.so
-    $ENV{Python_Soname}
-  )
-endif()
+#   target_link_libraries(pybev
+#     bevfusion_core
+#     libnvinfer.so
+#     libspconv.so
+#     ${Protobuf_LIBRARIES}
+#     libnvinfer_plugin.so
+#     $ENV{Python_Soname}
+#   )
+# endif()
 #######################################################################

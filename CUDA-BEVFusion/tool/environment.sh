@@ -22,16 +22,16 @@
 
 # export CUDA_VISIBLE_DEVICES=2
 
-export TensorRT_Lib=/path/to/TensorRT/lib
-export TensorRT_Inc=/path/to/TensorRT/include
-export TensorRT_Bin=/usr/src/tensorrt/bin
+export TensorRT_Lib=/usr/lib/x86_64-linux-gnu
+export TensorRT_Inc=/usr/include/x86_64-linux-gnu
+# export TensorRT_Bin=/usr/src/tensorrt/bin
 
 export CUDA_Lib=/usr/local/cuda/lib64
 export CUDA_Inc=/usr/local/cuda/include
 export CUDA_Bin=/usr/local/cuda/bin
 export CUDA_HOME=/usr/local/cuda
 
-export CUDNN_Lib=/path/to/cudnn/lib
+export CUDNN_Lib=/usr/lib/x86_64-linux-gnu
 
 
 # resnet50/resnet50int8/swint
@@ -45,10 +45,10 @@ export USE_Python=OFF
 # check the configuration path
 # clean the configuration status
 export ConfigurationStatus=Failed
-if [ ! -f "${TensorRT_Bin}/trtexec" ]; then
-    echo "Can not find ${TensorRT_Bin}/trtexec, there may be a mistake in the directory you configured."
-    return
-fi
+# if [ ! -f "${TensorRT_Bin}/trtexec" ]; then
+#     echo "Can not find ${TensorRT_Bin}/trtexec, there may be a mistake in the directory you configured."
+#     return
+# fi
 
 if [ ! -f "${CUDA_Bin}/nvcc" ]; then
     echo "Can not find ${CUDA_Bin}/nvcc, there may be a mistake in the directory you configured."
@@ -61,7 +61,7 @@ echo "||  PRECISION: $DEBUG_PRECISION"
 echo "||  DATA: $DEBUG_DATA"
 echo "||  USEPython: $USE_Python"
 echo "||"
-echo "||  TensorRT: $TensorRT_Lib"
+# echo "||  TensorRT: $TensorRT_Lib"
 echo "||  CUDA: $CUDA_HOME"
 echo "||  CUDNN: $CUDNN_Lib"
 echo "=========================================================="

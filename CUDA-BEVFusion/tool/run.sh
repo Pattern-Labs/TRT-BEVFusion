@@ -38,4 +38,4 @@ make -j
 
 cd ..
 
-./build/bevfusion $DEBUG_DATA $DEBUG_MODEL $DEBUG_PRECISION
+# ./build/bevfusion $DEBUG_DATA $DEBUG_MODEL $DEBUG_PRECISION
