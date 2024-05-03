@@ -46,6 +46,8 @@ set(CUDA_NVCC_FLAGS ${CUDA_NVCC_FLAGS}
   -gencode arch=compute_89,code=compute_89
 )
 
+set(CMAKE_POSITION_INDEPENDENT_CODE ON)
+
 include_directories(
   $ENV{CUDA_Inc}
   $ENV{TensorRT_Inc}
