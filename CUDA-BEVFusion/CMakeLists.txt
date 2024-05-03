@@ -38,15 +38,13 @@ set(CMAKE_CXX_FLAGS_DEBUG   "-std=c++14 -O0 -g -DENABLE_TEXT_BACKEND_STB")
 set(CUDA_NVCC_FLAGS_RELEASE "-Werror=all-warnings -Xcompiler -std=c++14,-Wextra,-Wall,-Wno-deprecated-declarations,-O3 -DENABLE_TEXT_BACKEND_STB")
 set(CUDA_NVCC_FLAGS_DEBUG   "-std=c++14 -O0 -g -DENABLE_TEXT_BACKEND_STB")
 
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++14")
-set(CUDA_NVCC_FLAGS "${CUDA_NVCC_FLAGS} --std c++14")
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++14 -fPIC")
+set(CUDA_NVCC_FLAGS "${CUDA_NVCC_FLAGS} --std c++14 --compiler-options -fPIC")
 
 # TODO(josh): which ones do we want
 set(CUDA_NVCC_FLAGS ${CUDA_NVCC_FLAGS}
   -gencode arch=compute_89,code=compute_89
 )
-
-set(CMAKE_POSITION_INDEPENDENT_CODE ON)
 
 include_directories(
   $ENV{CUDA_Inc}
