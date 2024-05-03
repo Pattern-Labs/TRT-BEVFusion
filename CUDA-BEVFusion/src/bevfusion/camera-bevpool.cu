@@ -25,9 +25,9 @@
 #include <numeric>
 
 #include "camera-bevpool.hpp"
-#include "common/check.hpp"
-#include "common/launch.cuh"
-#include "common/tensorrt.hpp"
+#include "bevfusion/common/check.hpp"
+#include "bevfusion/common/launch.cuh"
+#include "bevfusion/common/tensorrt.hpp"
 
 namespace bevfusion {
 namespace camera {

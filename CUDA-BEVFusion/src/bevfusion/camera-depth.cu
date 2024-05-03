@@ -24,8 +24,8 @@
 #include <cuda_fp16.h>
 
 #include "camera-depth.hpp"
-#include "common/check.hpp"
-#include "common/launch.cuh"
+#include "bevfusion/common/check.hpp"
+#include "bevfusion/common/launch.cuh"
 
 namespace bevfusion {
 namespace camera {

@@ -25,9 +25,9 @@
 #include <thrust/sort.h>
 
 #include "camera-geometry.hpp"
-#include "common/check.hpp"
-#include "common/launch.cuh"
-#include "common/tensor.hpp"
+#include "bevfusion/common/check.hpp"
+#include "bevfusion/common/launch.cuh"
+#include "bevfusion/common/tensor.hpp"
 
 namespace bevfusion {
 namespace camera {

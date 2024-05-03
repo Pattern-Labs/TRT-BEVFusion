@@ -27,7 +27,7 @@
 #include <memory>
 #include <vector>
 
-#include "common/dtype.hpp"
+#include "bevfusion/common/dtype.hpp"
 
 namespace bevfusion {
 namespace lidar {

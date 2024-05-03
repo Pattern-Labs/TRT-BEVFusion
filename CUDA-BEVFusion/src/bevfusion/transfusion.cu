@@ -26,9 +26,9 @@
 #include <algorithm>
 #include <numeric>
 
-#include "common/check.hpp"
-#include "common/launch.cuh"
-#include "common/tensorrt.hpp"
+#include "bevfusion/common/check.hpp"
+#include "bevfusion/common/launch.cuh"
+#include "bevfusion/common/tensorrt.hpp"
 #include "transfusion.hpp"
 
 namespace bevfusion {

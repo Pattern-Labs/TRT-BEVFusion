@@ -23,8 +23,8 @@
 
 #include <cuda_fp16.h>
 
-#include "common/check.hpp"
-#include "common/launch.cuh"
+#include "bevfusion/common/check.hpp"
+#include "bevfusion/common/launch.cuh"
 #include "lidar-voxelization.hpp"
 
 namespace bevfusion {
