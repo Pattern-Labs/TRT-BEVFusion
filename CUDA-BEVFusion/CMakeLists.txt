@@ -41,9 +41,13 @@ set(CUDA_NVCC_FLAGS_DEBUG   "-std=c++14 -O0 -g -DENABLE_TEXT_BACKEND_STB")
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++14 -fPIC")
 set(CUDA_NVCC_FLAGS "${CUDA_NVCC_FLAGS} --std c++14 --compiler-options -fPIC")
 
-# TODO(josh): which ones do we want
+# -arch sets the minimum CC that is required for this program.
+# -code with an sm_* option sets which architectures the program
+# will be fully compiled for automatically. Any architectures above
+# the minimum that are not pre-compiled will be compiled with the
+# GPU's JIT compiler at runtime.
 set(CUDA_NVCC_FLAGS ${CUDA_NVCC_FLAGS}
-  -gencode arch=compute_89,code=compute_89
+  -arch=compute_75 -code=sm_86 -code=sm_89
 )
 
 include_directories(
