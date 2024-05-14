@@ -47,7 +47,7 @@ set(CUDA_NVCC_FLAGS "${CUDA_NVCC_FLAGS} --std c++14 --compiler-options -fPIC")
 # the minimum that are not pre-compiled will be compiled with the
 # GPU's JIT compiler at runtime.
 set(CUDA_NVCC_FLAGS ${CUDA_NVCC_FLAGS}
-  -arch=compute_75 -code=sm_86 -code=sm_89
+  -arch=compute_61 -arch=compute_86 -code=sm_86 -code=sm_89
 )
 
 include_directories(
