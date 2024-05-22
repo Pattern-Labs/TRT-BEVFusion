@@ -20,7 +20,7 @@
  * FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
  * DEALINGS IN THE SOFTWARE.
  */
- 
+
 #ifndef __VISUALIZE_HPP__
 #define __VISUALIZE_HPP__
 
@@ -87,6 +87,7 @@ struct BEVArtistParameter {
   int image_height;
   float cx, cy, norm_size;
   float rotate_x;
+  float rotate_z;
   std::vector<NameAndColor> classes;
 };
 
