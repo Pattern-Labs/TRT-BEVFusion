@@ -328,7 +328,7 @@ class BEVArtistImplement : public BEVArtist {
     ego.size.w = 1.5f;
     ego.size.l = 3.0f;
     ego.size.h = 2.0f;
-    ego.z_rotation = 0;
+    ego.z_rotation = M_PI / 2;
 
     auto points = transformation_predictions(transform_matrix_.data(), {ego});
     size_t num = points.size();
